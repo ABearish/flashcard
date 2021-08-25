@@ -21,11 +21,8 @@ getCardsData();
 
 // Store Card Data
 function createCards() {
-  console.log(cardData);
   if (cardData.cards) {
-    cardData.cards.forEach((card, idx) => {
-      createCard(card, idx);
-    });
+    cardData.cards.forEach((card, idx) => createCard(card, idx));
   }
 }
 
@@ -56,13 +53,19 @@ function createCard(data, idx) {
 
 function updateCurrentText() {
   currentEl.innerHTML = cardData.getTotalCards();
+  if (cardsEl.length === 0) {
+    addContainer.classList.add("show");
+  }
 }
 createCards();
 
+// Get data from Local Storage
 function getCardsData() {
   const cards = JSON.parse(localStorage.getItem("cards"));
   if (cards !== null) {
     cardData.addCards(cards);
+  } else {
+    addContainer.classList.add("show");
   }
 }
 
@@ -129,5 +132,6 @@ removeCardBtn.addEventListener('click', () => {
   cardData.removeCurrentCard();
   setCardsData(cardData.cards);
   getCardsData();
+  updateCurrentText();
   window.location.reload();
 })
