@@ -6,9 +6,11 @@ export default class Cards {
   }
 
   addCard(question, answer) {
-    const newCard = new Card(question, answer);
-    this.cards.push(newCard);
-    this.totalCards++;
+    if (question.trim() && answer.trim()) {
+      const newCard = new Card(question, answer);
+      this.cards.push(newCard);
+      this.totalCards++;
+    }
   }
 
   addCards(arrOfCards) {
@@ -41,7 +43,7 @@ export default class Cards {
 
   removeCurrentCard() {
     const newCards = this.cards.filter((card, idx) => {
-      return idx != this.currentCard;
+      return idx !== this.currentCard;
     })
     this.cards = newCards;
   }

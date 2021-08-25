@@ -10,6 +10,8 @@ const answerEl = document.getElementById("answer");
 const addCardBtn = document.getElementById("add-container");
 const clearBtn = document.getElementById("clear");
 const addContainer = document.getElementById("add-container");
+const removeCardBtn = document.getElementById("remove-card");
+
 
 // create an array for DOM-elements
 const cardsEl = [];
@@ -32,23 +34,23 @@ function createCard(data, idx) {
   card.classList.add("card");
   if (idx === 0) {
     card.classList.add("active");
+    removeCardBtn.style.display = "block";
   }
   card.innerHTML = `
   <div class="inner-card">
-  <div class="inner-card-front">
-  <p>${data.question}</p>
-  </div>
-  <div class="inner-card-back">
-  <p>${data.answer}</p>
-  </div>
-  </div>
+    <div class="inner-card-front">
+      <p>${data.question}</p>
+    </div>
+    <div class="inner-card-back">
+      <p>${data.answer}</p>
+    </div>
+    </div>
   `;
 
   card.addEventListener("click", () => card.classList.toggle("show-answer"));
   // add to DOM cards
   cardsEl.push(card);
   cardsContainer.appendChild(card);
-
   updateCurrentText();
 }
 
@@ -123,3 +125,9 @@ clearBtn.addEventListener('click', () => {
   window.location.reload();
 })
 
+removeCardBtn.addEventListener('click', () => {
+  cardData.removeCurrentCard();
+  setCardsData(cardData.cards);
+  getCardsData();
+  window.location.reload();
+})
